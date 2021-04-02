@@ -11,19 +11,22 @@ export default function Shuffler(props) {
     }, []);
 
     function shuffleTeams() {
-        let teams = shuffle(GetFromStorage("Tasks").items);
-        document.querySelector(".mountains").style.display = "none";
-        document.querySelector(".add-team").style.display = "none";
-        console.log(teams);
-        setTasks(teams);
-        setHide(false);
+        if (GetFromStorage("Tasks").items) {
+            let teams = shuffle(GetFromStorage("Tasks").items);
+            document.querySelector(".mountains").style.display = "none";
+            document.querySelector(".add-team").style.display = "none";
+            setTasks(teams);
+            setHide(false);
+        }
     }
-
-    const teamElements = tasks.map((item) => (
-        <div className={"team " + (hide ? "hidden" : "")} key={item.id}>
-            {item.taskName}
-        </div>
-    ));
+    let teamElements;
+    if (tasks)
+        teamElements = tasks.map((item) => (
+            <div className={"team " + (hide ? "hidden" : "")} key={item.id}>
+                {item.taskName}
+            </div>
+        ));
+    else teamElements = <></>;
 
     return (
         <div>

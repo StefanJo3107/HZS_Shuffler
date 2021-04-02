@@ -10,13 +10,13 @@ function Tasks(props) {
     });
 
     useEffect(() => {
-        let tasks = GetFromStorage("Tasks");
-        setTasks(tasks);
+        if (GetFromStorage("Tasks") === null) {
+            AddToStorage("Tasks", { items: [], currId: 0 });
+        } else {
+            let t = GetFromStorage("Tasks");
+            setTasks(t);
+        }
     }, []);
-
-    useEffect(() => {
-        AddToStorage("Tasks", tasks);
-    }, [tasks]);
 
     function addTask(taskName) {
         taskName = taskName.trim();
@@ -32,6 +32,7 @@ function Tasks(props) {
         newTasks.currId++;
 
         setTasks(newTasks);
+        AddToStorage("Tasks", newTasks);
     }
 
     function deleteTask(id) {
@@ -59,15 +60,17 @@ function Tasks(props) {
 
         setTasks(newTasks);
     }
-
-    const taskElements = tasks.items.map((item) => (
-        <Task
-            key={item.id}
-            task={item}
-            updateTask={checkTask}
-            deleteTask={deleteTask}
-        />
-    ));
+    let taskElements;
+    if (tasks.items)
+        taskElements = tasks.items.map((item) => (
+            <Task
+                key={item.id}
+                task={item}
+                updateTask={checkTask}
+                deleteTask={deleteTask}
+            />
+        ));
+    else taskElements = <></>;
 
     return (
         <div className="tasks">
@@ -85,7 +88,7 @@ function GetFromStorage(key) {
     let tasks = localStorage.getItem(key);
 
     if (tasks) return JSON.parse(tasks);
-    else return {};
+    else return null;
 }
 
 export default Tasks;
