@@ -1,0 +1,20 @@
+.logo {
+    width: 300px;
+}
+
+.dice {
+    width: 150px;
+    height: 150px;
+    color: #05f9a1;
+    margin-left: 20px;
+    animation: App-logo-spin infinite 10s linear;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: translateY(10px) rotate(0deg);
+    }
+    to {
+        transform: translateY(10px) rotate(360deg);
+    }
+}

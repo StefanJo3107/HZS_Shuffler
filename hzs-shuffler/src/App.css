@@ -1,0 +1,17 @@
+html {
+    background-color: #161616;
+}
+
+.main {
+    width: 70vh;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flex-item {
+    margin-top: 40px;
+    flex-basis: 150px;
+}
